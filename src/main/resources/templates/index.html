@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/styles.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Registration Form</h2>
+    <form id="registrationForm" th:action="@{/save}" th:object="${saveuser}" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" th:field="*{firstName}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" th:field="*{lastName}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="mobile">Mobile Number:</label>
+            <input type="tel" id="mobile" th:field="*{mobile}" pattern="[0-9]{10}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Gender:</label>
+            <input type="radio" id="male" th:field="*{gender}" th:value="male" required>
+            <label for="male">Male</label>
+            <input type="radio" id="female" th:field="*{gender}" th:value="female" required>
+            <label for="female">Female</label>
+        </div>
+
+        <div class="form-group">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" th:field="*{dob}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <textarea id="address" th:field="*{address}" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="city">City:</label>
+            <select id="city" th:field="*{city}" required>
+                <!--<option th:each="city : ${cities}"
+                        th:value="${city}"
+                        th:text="${city}"></option>-->
+                <option value="">Select City</option>
+                <option th:value="Ahmedabad">Ahmedabad</option>
+                <option th:value="Surat">Surat</option>
+                <option th:value="Vadodara">Vadodara</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="pincode">Pincode:</label>
+            <input type="text" id="pincode" th:field="*{pincode}" pattern="[0-9]{6}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="state">State:</label>
+            <select id="state" th:field="*{state}" required>
+                <!--<option th:each="state : ${states}"
+                        th:value="${state}"
+                        th:text="${state}"></option>-->
+                <option value="">Select State</option>
+                <option th:value="gujarat">Gujarat</option>
+                <option th:value="mumbai">Mumbai</option>
+                <option th:value="punjab">Punjab</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="country">Country:</label>
+            <select id="country" th:field="*{country}" required>
+                <option value="">Select Country</option>
+                <option th:each="country : ${countries}"
+                        th:value="${country}"
+                        th:text="${country}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Hobbies:</label><br>
+            <!--<label th:each="hobby : ${hobbies}"> 
+                <input type="checkbox" name="hobbies" th:value="${hobby}">
+                <span th:text="${hobby}"></span>
+            </label><br>-->
+            <input type="checkbox" id="hobby1" th:field="*{hobby}" th:value="reading"/>
+            <label for="hobby1">Reading</label><br>
+            <input type="checkbox" id="hobby2" th:field="*{hobby}" th:value="sports"/>
+            <label for="hobby2">Sports</label><br>
+            <input type="checkbox" id="hobby3" th:field="*{hobby}" th:value="music"/>
+            <label for="hobby3">Music</label><br>
+
+        </div>
+
+        <div class="form-group">
+            <label for="profilePic">Profile Picture:</label>
+            <input type="file" id="profilePic" name="profilePic" accept="image/*" required>
+        </div>
+
+        <button type="submit" class="btn">Submit</button>
+    </form>
+</div>
+
+<script>
+    function validateForm() {
+        var form = document.getElementById("registrationForm");
+        var mobile = form.elements["mobile"].value;
+        var pincode = form.elements["pincode"].value;
+        var country = form.elements["country"].value;
+
+        // Validation for Mobile Number
+        if (!/^\d{10}$/.test(mobile)) {
+            alert("Please enter a valid 10-digit mobile number.");
+            return false;
+        }
+
+        // Validation for Pincode
+        if (!/^\d{6}$/.test(pincode)) {
+            alert("Please enter a valid 6-digit pincode.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+</body>
+</html>
